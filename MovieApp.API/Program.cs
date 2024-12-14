@@ -109,6 +109,10 @@ builder.Services.AddScoped<StructuredStringSearchBusinessService>();
 builder.Services.AddScoped<WordToWordService>();
 builder.Services.AddScoped<WordToWordBusinessService>();
 
+//GetMovieActor
+builder.Services.AddScoped<GetMovieActorService>();
+builder.Services.AddScoped<GetMovieActorBusinessService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
