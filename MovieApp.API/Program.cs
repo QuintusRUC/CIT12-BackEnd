@@ -109,17 +109,13 @@ builder.Services.AddScoped<StructuredStringSearchBusinessService>();
 builder.Services.AddScoped<WordToWordService>();
 builder.Services.AddScoped<WordToWordBusinessService>();
 
-//GetMovieActor
-builder.Services.AddScoped<GetMovieActorService>();
-builder.Services.AddScoped<GetMovieActorBusinessService>();
+//MovieDetails
+builder.Services.AddScoped<MovieDetailsService>();
+builder.Services.AddScoped<MovieDetailsBusinessService>();
 
-//GetMovieDetails
-builder.Services.AddScoped<GetMovieDetailsService>();
-builder.Services.AddScoped<GetMovieDetailsBusinessService>();
-
-//GetActor
-builder.Services.AddScoped<GetActorService>();
-builder.Services.AddScoped<GetActorBusinessService>();
+//Actor
+builder.Services.AddScoped<ActorService>();
+builder.Services.AddScoped<ActorBusinessService>();
 
 var app = builder.Build();
 

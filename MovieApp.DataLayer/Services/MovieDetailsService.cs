@@ -9,16 +9,16 @@ using Npgsql;
 
 namespace MovieApp.DataLayer.Services
 {
-    public class GetMovieDetailsService
+    public class MovieDetailsService
     {
         private readonly MovieContext _dbContext;
 
-        public GetMovieDetailsService(MovieContext dbContext)
+        public MovieDetailsService(MovieContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<MovieDetails> GetMovieDetailsAsync(string movieId)
+        public async Task<MovieDetails> MovieDetailsAsync(string movieId)
         {
             var query = @"
                 SELECT tconst, primarytitle, originaltitle, isadult, startyear, endyear, runtimeminutes, genres

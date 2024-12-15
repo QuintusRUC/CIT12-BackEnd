@@ -21,7 +21,6 @@ namespace MovieApp.DataLayer
         public DbSet<StringSearchResult> StringSearchResults { get; set; }
         public DbSet<StructuredStringSearchResult> StructuredStringSearchResult { get; set; }
         public DbSet<WordToWordResult> WordToWordResults { get; set; }
-        public DbSet<MovieActorResult> MovieActorResults { get; set; }
         public DbSet<MovieDetails> Movies { get; set; }
         public DbSet<Actor> Actors { get; set; }
 
@@ -75,7 +74,6 @@ namespace MovieApp.DataLayer
             modelBuilder.Entity<SimilarMoviesResult>().HasNoKey();
             modelBuilder.Entity<StructuredStringSearchResult>().HasNoKey();
             modelBuilder.Entity<WordToWordResult>().HasNoKey();
-            modelBuilder.Entity<MovieActorResult>().HasNoKey();
             modelBuilder.Entity<MovieDetails>().HasNoKey();
             modelBuilder.Entity<Actor>().HasNoKey();
         }
