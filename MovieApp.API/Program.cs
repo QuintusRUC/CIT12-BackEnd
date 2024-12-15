@@ -113,6 +113,14 @@ builder.Services.AddScoped<WordToWordBusinessService>();
 builder.Services.AddScoped<GetMovieActorService>();
 builder.Services.AddScoped<GetMovieActorBusinessService>();
 
+//GetMovieDetails
+builder.Services.AddScoped<GetMovieDetailsService>();
+builder.Services.AddScoped<GetMovieDetailsBusinessService>();
+
+//GetActor
+builder.Services.AddScoped<GetActorService>();
+builder.Services.AddScoped<GetActorBusinessService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
