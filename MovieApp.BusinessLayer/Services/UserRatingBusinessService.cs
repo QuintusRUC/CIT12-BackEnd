@@ -51,5 +51,10 @@ namespace MovieApp.BusinessLayer.Services
         {
             return await _userRatingService.DeleteRatingAsync(ratingId);
         }
+
+        public async Task<List<UserRating>> GetRatingsByUserIdAsync(int userId)
+        {
+            return await _userRatingService.GetRatingsByUserIdAsync(userId);
+        }
     }
 }

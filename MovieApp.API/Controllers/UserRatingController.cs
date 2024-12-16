@@ -57,5 +57,12 @@ namespace MovieApp.API.Controllers
                 return Ok("Rating deleted successfully.");
             return StatusCode(500, "Failed to delete rating.");
         }
+
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetRatingByUserId(int userId)
+        {
+            var ratings = await _userRatingBusinessService.GetRatingsByUserIdAsync(userId);
+            return Ok(ratings);
+        }
     }
 }

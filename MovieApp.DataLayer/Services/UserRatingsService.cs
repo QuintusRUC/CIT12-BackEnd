@@ -67,5 +67,11 @@ namespace MovieApp.DataLayer.Services
                 return false;
             }
         }
+
+        public async Task<List<UserRating>> GetRatingsByUserIdAsync(int userId)
+        {
+            var query = $"SELECT * FROM user_ratings WHERE user_id = {userId}";
+            return await _dbContext.UserRatings.FromSqlRaw(query).ToListAsync();
+        }
     }
 }
