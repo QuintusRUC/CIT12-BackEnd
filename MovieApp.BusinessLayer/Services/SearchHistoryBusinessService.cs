@@ -19,9 +19,9 @@ namespace MovieApp.BusinessLayer.Services
             return await _searchHistoryService.GetAllSearchHistoryAsync();
         }
 
-        public async Task<SearchHistory> GetSearchHistoryByIdAsync(int searchId)
+        public async Task<List<SearchHistory>> GetSearchHistoryByUserIdAsync(int userId)
         {
-            return await _searchHistoryService.GetSearchHistoryByIdAsync(searchId);
+            return await _searchHistoryService.GetSearchHistoryByUserIdAsync(userId);
         }
 
         public async Task<bool> AddSearchHistoryAsync(SearchHistory searchHistory)

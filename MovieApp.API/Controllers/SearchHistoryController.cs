@@ -2,6 +2,7 @@
 using MovieApp.BusinessLayer.Services;
 using MovieApp.DataLayer.Models;
 using System.Threading.Tasks;
+using System;
 
 namespace MovieApp.API.Controllers
 {
@@ -20,22 +21,29 @@ namespace MovieApp.API.Controllers
         public async Task<IActionResult> GetAllSearchHistory()
         {
             var history = await _searchHistoryBusinessService.GetAllSearchHistoryAsync();
+            if (history == null || history.Count == 0)
+                return NotFound("No search history entries found.");
             return Ok(history);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetSearchHistoryById(int id)
+        [HttpGet("User/{userId}")]
+        public async Task<IActionResult> GetSearchHistoryByUserId(int userId)
         {
-            var entry = await _searchHistoryBusinessService.GetSearchHistoryByIdAsync(id);
-            if (entry == null)
-                return NotFound("Search history entry not found.");
-            return Ok(entry);
+            // Fetch all search history entries for the provided userId
+            var history = await _searchHistoryBusinessService.GetSearchHistoryByUserIdAsync(userId);
+            // If no entries are found, return a 404 response
+            if (history == null || history.Count == 0)
+            {
+                return NotFound($"No search history found for user with ID {userId}.");
+            }
+            // Return the list of search history entries
+            return Ok(history);
         }
 
         [HttpPost("Add")]
         public async Task<IActionResult> AddSearchHistory(int userId, string searchTerm, DateTime? searchDate = null)
         {
-            var utcDate = (searchDate ?? DateTime.Now).ToUniversalTime(); // Konverter til UTC
+            var utcDate = (searchDate ?? DateTime.Now).ToUniversalTime(); // Default to current UTC time if not provided
             var entry = new SearchHistory
             {
                 UserId = userId,

@@ -21,9 +21,13 @@ namespace MovieApp.DataLayer.Services
         }
 
         // Get search history by ID
-        public async Task<SearchHistory> GetSearchHistoryByIdAsync(int searchId)
+        public async Task<List<SearchHistory>> GetSearchHistoryByUserIdAsync(int userId)
         {
-            return await _dbContext.SearchHistory.FindAsync(searchId);
+            // Query all search history entries matching the given userId
+            return await _dbContext.SearchHistory
+                .Where(history => history.UserId == userId)
+                .OrderByDescending(history => history.SearchDate) // Optional: Sort by most recent search
+                .ToListAsync();
         }
 
         // Add a search history entry

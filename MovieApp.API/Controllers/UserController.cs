@@ -77,7 +77,13 @@ namespace MovieApp.API.Controllers
                 return Unauthorized("Invalid email or password.");
             }
 
-            return Ok($"Welcome {user.Username}!");
+            return Ok(new
+            {
+                userId = user.UserId,
+                username = user.Username,
+                email = user.Email,
+                role = user.Role
+            });
         }
 
 
