@@ -32,7 +32,7 @@ namespace MovieApp.DataLayer.Services
         public async Task<List<Actor>> MovieActorsAsync(string movieId)
         {
             var query = @"
-                SELECT nb.nconst, nb.primaryname, nb.birthyear, nb.deathyear, nb.primaryprofession
+                SELECT DISTINCT nb.nconst, nb.primaryname, nb.birthyear, nb.deathyear, nb.primaryprofession
                 FROM title_principals tp
                 JOIN name_basics nb ON tp.nconst = nb.nconst
                 WHERE tp.tconst = @movieId";
