@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieApp.BusinessLayer;
-//
 namespace MovieApp.API.Controllers
 {
     [ApiController]
