@@ -71,12 +71,33 @@ namespace MovieApp.API.Controllers
                 return BadRequest("Email and password must be provided.");
             }
 
+            // Debugging: Input værdier
+            Console.WriteLine($"DEBUG: Input email: {email}");
+            Console.WriteLine($"DEBUG: Input password: {password}");
+
+            // Hent brugerdata fra databasen
             var user = await _userBusinessService.GetUserByEmailAsync(email);
-            if (user == null || user.Password != password)
+
+            // Debugging: Gemt hash fra databasen
+            if (user != null)
             {
+                Console.WriteLine($"DEBUG: Gemt password-hash i databasen: {user.Password}");
+            }
+            else
+            {
+                Console.WriteLine("DEBUG: Ingen bruger fundet med den email.");
+            }
+
+            // Tjek om brugeren findes og verificér password
+            if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
+            {
+                Console.WriteLine("DEBUG: Password verificering fejlede.");
                 return Unauthorized("Invalid email or password.");
             }
 
+            Console.WriteLine("DEBUG: Password verificering lykkedes!");
+
+            // Returnér brugerinfo uden password
             return Ok(new
             {
                 userId = user.UserId,
@@ -85,6 +106,11 @@ namespace MovieApp.API.Controllers
                 role = user.Role
             });
         }
+
+
+
+
+
 
 
     }

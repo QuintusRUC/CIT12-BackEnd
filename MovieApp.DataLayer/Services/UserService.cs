@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieApp.DataLayer.Models;
-
+using BCrypt.Net; // Importér BCrypt
 namespace MovieApp.DataLayer.Services
 {
     public class UserService
@@ -64,24 +64,39 @@ namespace MovieApp.DataLayer.Services
         }
 
         // Tilføj bruger via databasefunktion
+
+
         public async Task<bool> AddUserViaFunctionAsync(string username, string email, string password)
         {
             try
             {
+                // Hash password med salt
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+
+                // Debugging: Vis det hash'ede password
+                Console.WriteLine($"DEBUG: Opretter bruger med email: {email}");
+                Console.WriteLine($"DEBUG: Hash'et password: {hashedPassword}");
+
+                // Gem det hash'ede password i databasen
                 await _dbContext.Database.ExecuteSqlRawAsync(
                     "SELECT add_user({0}, {1}, {2})",
-                    username, email, password
+                    username, email, hashedPassword
                 );
+
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine($"DEBUG: Fejl under oprettelse af bruger: {ex.Message}");
                 return false;
             }
         }
+
+
         public async Task<User?> GetUserByEmailAsync(string email)
         {
-            return await _dbContext.users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _dbContext.users
+                .FirstOrDefaultAsync(u => u.Email == email);
         }
 
     }

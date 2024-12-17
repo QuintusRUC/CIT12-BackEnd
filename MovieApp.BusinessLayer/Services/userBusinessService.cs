@@ -26,8 +26,22 @@ namespace MovieApp.BusinessLayer
 
         public async Task<User?> GetUserByEmailAsync(string email)
         {
-            return await _userService.GetUserByEmailAsync(email);
+            Console.WriteLine($"DEBUG: Søger efter bruger med email: {email}");
+            var user = await _userService.GetUserByEmailAsync(email);
+
+            if (user != null)
+            {
+                Console.WriteLine($"DEBUG: Bruger fundet med email: {email}");
+            }
+            else
+            {
+                Console.WriteLine("DEBUG: Ingen bruger fundet.");
+            }
+
+            return user;
         }
+
+
 
 
         public async Task<bool> UpdateUserAsync(int userId, string username, string email, string password, string? role = null)
